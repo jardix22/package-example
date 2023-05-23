@@ -1,6 +1,6 @@
 {
   "name": "@jardix22/package-example",
-  "version": "2.22.1-rc.1",
+  "version": "2.22.1-rc.2",
   "description": "",
   "main": "index.js",
   "publishConfig": {
