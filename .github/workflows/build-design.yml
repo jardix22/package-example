@@ -3,7 +3,7 @@ name: Build Design package
 on: 
   push:
     branches:
-      - next
+      - main
 
 jobs:
   publish-gpr:
