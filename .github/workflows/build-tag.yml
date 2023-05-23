@@ -1,0 +1,33 @@
+name: Build package
+
+on: 
+  push:
+    tags:
+      - 'release-v*.*.*'
+
+jobs:
+  publish-gpr:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check Tag
+        id: check-tag
+        run: |
+          if [[ ${{ github.event.ref }} =~ ^refs/tags/release\-v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "match=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Build
+        if: steps.check-tag.outputs.match == 'true'
+        run: |
+          echo "Tag is a match: ${{ steps.check-tag.outputs.match }}"
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: yarn
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
