@@ -12,6 +12,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "release": {
+    "branches": [
+      { "name": "release" },
+      { "name": "main", "channel": "beta", "prerelease": "beta" }
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
