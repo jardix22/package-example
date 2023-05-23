@@ -3,5 +3,5 @@ export default function sayHello(name) {
 }
 
 export default function sayBye(name) {
-    console.log(`Bye ${name}!`);
+    return `Bye ${name}!`;
 }
