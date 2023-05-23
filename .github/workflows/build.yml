@@ -18,11 +18,6 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - run: yarn
-
-      - name: Setup Semantic Release
-        run: npm install -g semantic-release@18 @semantic-release/npm @semantic-release/commit-analyzer
-    
-      - name: Release Package(s) if on default branch
-        run: semantic-release
+      - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
