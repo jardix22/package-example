@@ -16,11 +16,23 @@ jobs:
       contents: read
     steps: 
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Automatic GitHub Release
+        uses: justincy/github-action-npm-release@2.0.1
+        id: release
+
       - uses: actions/setup-node@v3
+        if: steps.release.outputs.released == 'true'
         with: 
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: yarn
-      - run: yarn publish
+
+      - if: steps.release.outputs.released == 'true'
+        run: yarn
+
+      - if: steps.release.outputs.released == 'true'
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
