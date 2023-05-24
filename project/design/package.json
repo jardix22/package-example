@@ -14,8 +14,14 @@
   },
   "release": {
     "branches": [
-      { "name": "release" },
-      { "name": "main", "channel": "beta", "prerelease": "beta" }
+      {
+        "name": "release"
+      },
+      {
+        "name": "main",
+        "channel": "beta",
+        "prerelease": "beta"
+      }
     ]
   },
   "keywords": [],
