@@ -5,26 +5,56 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  publish-gpr:
+  test:
+    name: Testing & Linting
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install
+        run: yarn
+
+      - name: Run eslint
+        run: yarn lint.eslint
+
+      - name: Run prettier
+        run: yarn lint.prettier
+
+  publish-gpr:
+    name: Publish Github Package
+    runs-on: ubuntu-latest
+    needs: [test]
     permissions:
       packages: write
       contents: write
     steps: 
-      - name: Config github identity
-        run: |
-          git config --global user.name '${{ github.actor }}'
-          git config --global user.email '${{ github.actor }}@users.noreply.github.com'
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
         with: 
-          node-version: 16
+          node-version-file: ".nvmrc"
           registry-url: https://npm.pkg.github.com/
-      - run: yarn
-      - run: yarn version --prerelease --preid rc
-      - name: Git push changes
-        run: git push origin main
-      - run: yarn publish --tag rc
+
+      - name: Install
+        run: yarn
+
+      - name: Publish package
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
