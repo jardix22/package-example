@@ -1,0 +1,30 @@
+name: Build package release
+
+on: 
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-gpr:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+    steps: 
+      - name: Config github identity
+        run: |
+          git config --global user.name '${{ github.actor }}'
+          git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: yarn
+      - run: yarn version --minor
+      - name: Git push changes
+        run: git push origin main
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
