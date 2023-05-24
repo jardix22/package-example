@@ -24,7 +24,7 @@ jobs:
       - run: yarn
       - run: yarn version --minor
       - name: Git push changes
-        run: git push origin main
+        run: git push origin ${{ github.base_ref }}
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
