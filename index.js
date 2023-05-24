@@ -1,5 +1,5 @@
 export default function sayHello(name) {
-    console.log(`Hello ${name}!`);
+    return `Hello ${name}!`;
 }
 
 export default function sayBye(name) {
