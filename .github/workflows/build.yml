@@ -23,7 +23,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: yarn
       - run: yarn version --prerelease --preid rc
-      - name: Config github identity
+      - name: Git push changes
         run: git push origin main
       - run: yarn publish --tag rc
         env:
