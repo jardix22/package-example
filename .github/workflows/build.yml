@@ -29,10 +29,10 @@ jobs:
         run: yarn
 
       - name: Run eslint
-        run: yarn lint.eslint
+        run: yarn lint:eslint
 
       - name: Run prettier
-        run: yarn lint.prettier
+        run: yarn lint:prettier
 
   publish-gpr:
     name: Publish Github Package
