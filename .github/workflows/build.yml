@@ -12,10 +12,6 @@ jobs:
       packages: write
       contents: read
     steps: 
-      - name: Config github identity
-        run: |
-          git config --global user.name '${{ github.actor }}'
-          git config --global user.email '${{ github.actor }}@users.noreply.github.com'
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with: 
@@ -23,9 +19,15 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: yarn
       - run: yarn version --prerelease --preid rc
-      - name: Push git changes
-        run: |
-          git push origin main
+      - name: Commit changes to branch
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: |
+            ${{ github.event.head_commit.message }}
+
+            DiffTrain build for commit https://github.com/facebook/react/commit/${{ github.sha }}.
+          commit_user_name: ${{ github.actor }}
+          commit_user_email: ${{ github.actor }}@users.noreply.github.com
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
