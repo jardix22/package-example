@@ -51,6 +51,10 @@ jobs:
           node-version-file: ".nvmrc"
           registry-url: https://npm.pkg.github.com/
 
+      # Use this GitHub Action
+      - name: Check package version
+        uses: technote-space/package-version-check-action@v1
+
       - name: Install
         run: yarn
 
