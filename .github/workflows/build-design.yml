@@ -27,7 +27,7 @@ jobs:
         run: npm install -g semantic-release@18 @semantic-release/npm @semantic-release/commit-analyzer
 
       - name: Release Package(s) if on default branch
-        run: semantic-release
+        run: semantic-release --debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
