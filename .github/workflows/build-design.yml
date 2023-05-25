@@ -3,6 +3,7 @@ name: Build Design package
 on: 
   push:
     branches:
+      - main
       - next
 
 jobs:
