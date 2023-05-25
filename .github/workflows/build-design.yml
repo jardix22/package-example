@@ -40,3 +40,5 @@ jobs:
 
       - name: Release Package(s) if on default branch
         run: semantic-release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
