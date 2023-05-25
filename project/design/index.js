@@ -9,3 +9,7 @@ export function factorial(n) {
 
   return n * factorial(n - 1);
 }
+
+function lowerThan(n) {
+  return n;
+}
