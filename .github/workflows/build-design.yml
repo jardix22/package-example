@@ -23,13 +23,17 @@ jobs:
       pages: write
       statuses: write
     steps: 
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
         with: 
           node-version: 18
           registry-url: https://npm.pkg.github.com/
 
-      - run: yarn
+      - name: Install dependecies
+        run: yarn
 
       - name: Setup Semantic Release
         run: npm install -g semantic-release@18 @semantic-release/npm @semantic-release/commit-analyzer
