@@ -12,8 +12,15 @@ jobs:
       run:
        working-directory: ./project/design
     permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      discussions: write
+      issues: write
       packages: write
-      contents: read
+      pages: write
+      statuses: write
     steps: 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
